@@ -47,8 +47,13 @@
 			<td>제목</td>
 			<td>시작일</td>
 			<td>종료일</td>
-			<td>항목</td>
+			<td>복수투표여부</td>
 			<td>투표하기</td>
+			<td>삭제</td>
+			<td>수정</td>
+			<td>종료일자수정</td>
+			<td>결과</td>
+			
 		</tr>
 		
 		<%
@@ -63,7 +68,7 @@
     			
     				<td><%= q.getEnddate()%></td>
     			
-    				<td><%= q.getType()%></td>
+    				<td><%= q.getType() == 1 ? "가능" : "불가능"%></td>
     				
     				<td>
     					<%
@@ -80,6 +85,37 @@
 				        	%><a href="">[투표하기]</a><%
 				        }
 						%>
+    				</td>
+    				
+    				<td>
+    					<a href="/poll/deletePollAction.jsp?qnum=<%=q.getNum()%>">[삭제]</a>
+    				</td>
+    				
+    				<td>
+    					<% 
+    						if(todayDate.after(endDate)) {
+    					%>
+    							종료됨	
+    					<% 
+    						} else {
+    					%>
+    							<a href="/poll/updatePollForm.jsp?qnum=<%=q.getNum()%>">[수정]</a>
+    					<% 
+    						}
+    					%>
+    				</td>
+    				<td>
+    					<%
+    						if(todayDate.before(endDate)) {
+    					%>
+    							<a href="/poll/updateQuestionEnddateForm.jsp?qnum=<%=q.getNum()%>">종료일 수정</a>
+    					<% 		
+    						} else {
+    					%>
+    							종료일 수정불가
+    					<% 		
+    						}
+    					%>
     				</td>
     			</tr>
 		<% 		

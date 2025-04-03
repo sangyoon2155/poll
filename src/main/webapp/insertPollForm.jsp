@@ -53,7 +53,7 @@
 		</table>
 		<button type="submit">작성하기</button>
 		<button type="reset">다시쓰기</button>
-		<a href="/poll/poolList.jsp">리스트</a>
+		<a href="/poll/pollList.jsp">리스트</a>
 	</form>
 </body>
 </html>
