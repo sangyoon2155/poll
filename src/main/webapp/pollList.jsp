@@ -35,13 +35,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>pollList</title>
+	<meta charset="UTF-8">
+	<title>pollList</title>
+	<!-- Latest compiled and minified CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	
+	<!-- Latest compiled JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+	<div>
+		<jsp:include page="/inc/nav.jsp"></jsp:include>
+	</div>
 	<h1>설문리스트</h1>
 	<!-- foreach문 ArrayList<Question> list 출력 title링크(startdate <= 오늘날짜 <= enddate) 투표시작전, 투표종료, 투표하기 -->
-	<table border="1">
+	<table class="table table-dark table-hover">
 		<tr>
 			<td>번호</td>
 			<td>제목</td>
@@ -82,7 +90,7 @@
 				        } else if (todayDate.after(endDate)) {
 				        	%>투표종료<%
 				        } else {
-				        	%><a href="">[투표하기]</a><%
+				        	%><a href="/poll/updateItemForm.jsp?qnum=<%=q.getNum()%>">[투표하기]</a><%
 				        }
 						%>
     				</td>
@@ -113,6 +121,19 @@
     						} else {
     					%>
     							종료일 수정불가
+    					<% 		
+    						}
+    					%>
+    				</td>
+    				<td>
+    					<%
+    						if(todayDate.after(endDate)) {
+    					%>
+    							<a class="btn btn-warning" href="/poll/questionOneResult.jsp?qnum=<%=q.getNum()%>">결과보기</a>
+    					<% 		
+    						} else {
+    					%>
+    							투표진행중
     					<% 		
     						}
     					%>
