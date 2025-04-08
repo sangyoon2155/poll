@@ -11,6 +11,23 @@ import dto.*;
 
 public class BoardDao {
 	
+	public int totalCount() throws ClassNotFoundException, SQLException {
+		int totalCount = 0;
+		Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/poll", "root", "java1234");
+        String sql = "SELECT COUNT(*) FROM board";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        if (rs.next()) {
+            totalCount = rs.getInt(1); // 첫 번째 컬럼 값이 총 개수
+        }
+        
+        conn.close();
+		return totalCount;
+	}
+	
+	
 	public boolean verifyPassword(Board b) throws ClassNotFoundException, SQLException {
 	    Class.forName("com.mysql.cj.jdbc.Driver");
 	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/poll", "root", "java1234");

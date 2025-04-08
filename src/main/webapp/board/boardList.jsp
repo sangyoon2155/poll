@@ -4,11 +4,17 @@
 <%@ page import = "java.util.*" %>
 <%
 	int currentPage = 1;
+	int rowPerPage = 3;
 	if(request.getParameter("currentPage") != null) {
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
 	
-	BoardDao boardDao = new BoardDao();
+	BoardDao boardDao =  new BoardDao();
+	
+	int totalCount = boardDao.totalCount();
+	int lastPage = (int) Math.ceil((double) totalCount / rowPerPage);
+	
+	
 	Paging p = new Paging();
 	p.setCurrentPage(currentPage);
 	p.setRowPerPage(10);
@@ -67,5 +73,20 @@
 			%>
 		</tbody>
 	</table>
+	<% 
+		if(currentPage > 1) {
+	%>
+			<a href ="/poll/board/boardList.jsp?currentPage=<%=currentPage-1%>">[이전]</a>
+	<% 
+		} 
+	%>
+	<%
+		if(currentPage < lastPage) {
+	%>
+			<a href ="/poll/board/boardList.jsp?currentPage=<%=currentPage+1%>">[다음]</a>
+	<% 		
+		}
+	%>
+	<p>현재페이지: <%=currentPage%> / <%=lastPage%> </p>
 </body>
 </html>
