@@ -19,6 +19,12 @@
 	// 2) 1의 결과에 확장자 추가
 	int dotLastPos = originalName.lastIndexOf("."); // 마지막 . 의 인덱스값 반환
 	System.out.println("dotLastPos: "+dotLastPos);
+	String ext = originalName.substring(dotLastPos);
+	
+	if(!ext.equals(".png")) {
+		response.sendRedirect("/poll/imageBoard/insertImageForm.jsp?msg=ErrorNotPng");
+		return;
+	}
 	
 	filename = filename + originalName.substring(dotLastPos);
 	System.out.println("filename: "+filename);
